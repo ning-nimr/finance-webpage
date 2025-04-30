@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang=\"en\">
+<head>
+    <meta charset=\"UTF-8\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+    <title>Finance Essentials</title>
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --secondary-color: #34a853;
+            --accent-color: #fbbc05;
+            --dark-color: #202124;
+            --light-color: #f8f9fa;
+            --gray-color: #dadce0;
+            --text-color: #3c4043;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            width: 60px;
+            background-color: var(--accent-color);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .card:hover .card-image img {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            background-color: #0d66d0;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: #2d9449;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-top: 2rem;
+        }
+
+        .chart {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+        }
+
+        .chart-bar {
+            width: 12%;
+            background-color: var(--primary-color);
+            border-radius: 4px 4px 0 0;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .chart-bar:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .chart-bar::after {
+            content: attr(data-value) '%';
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .chart-labels {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 0.5rem;
+        }
+
+        .chart-label {
+            font-size: 0.85rem;
+            text-align: center;
+            width: 12%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-color);
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        tr:hover {
+            background-color: rgba(26, 115, 232, 0.05);
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--gray-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .tab {
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab.active {
+            border-bottom: 3px solid var(--primary-color);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .tab:hover:not(.active) {
+            background-color: rgba(26, 115, 232, 0.05);
+            border-bottom: 3px solid var(--accent-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .faq-item {
+            margin-bottom: 1rem;
+            border: 1px solid var(--gray-color);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1rem;
+            background-color: #f1f3f4;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .faq-question:hover {
+            background-color: #e8f0fe;
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .faq-item.active .faq-question::after {
+            content: '−';
+        }
+
+        .faq-answer {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 1rem;
+            max-height: 500px;
+        }
+
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .social-links {
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 0.5rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            color: var(--accent-color);
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .tab {
+                text-align: center;
+            }
+            
+            .chart-container {
+                height: 200px;
+            }
+            
+            table {
+                font-size: 0.9rem;
+            }
+            
+            th, td {
+                padding: 0.75rem;
+            }
+            
+            .back-to-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Finance Essentials</h1>
+    </header>
+
+    <section class=\"hero\">
+        <h1>Understanding Finance</h1>
+        <p>Your guide to navigating the complex world of finance, from personal budgeting to global markets</p>
+        <a href=\"#explore\" class=\"btn\">Explore Now</a>
+    </section>
+
+    <div class=\"container\" id=\"explore\">
+        <section class=\"section animate\">
+            <h2>What is Finance?</h2>
+            <p>Finance is the study and management of money, investments, and other financial instruments. It encompasses a wide range of activities including the creation, management, and study of money, banking, credit, investments, assets, and liabilities that make up financial systems.</p>
+            
+            <div class=\"tabs\">
+                <div class=\"tab active\" data-tab=\"personal\">Personal Finance</div>
+                <div class=\"tab\" data-tab=\"corporate\">Corporate Finance</div>
+                <div class=\"tab\" data-tab=\"investment\">Investment Banking</div>
+                <div class=\"tab\" data-tab=\"markets\">Financial Markets</div>
+            </div>
+            
+            <div class=\"tab-content active\" id=\"personal\">
+                <h3>Personal Finance</h3>
+                <p>Personal finance deals with how individuals and households manage their money and plan for future financial goals. This includes budgeting, saving, investing, insurance, mortgages, retirement planning, tax planning, and estate planning.</p>
+                <div class=\"chart-container\">
+                    <h4>Personal Budget Allocation</h4>
+                    <div class=\"chart\">
+                        <div class=\"chart-bar\" data-value=\"30\" style=\"height: 30%;\"></div>
+                        <div class=\"chart-bar\" data-value=\"25\" style=\"height: 25%;\"></div>
+                        <div class=\"chart-bar\" data-value=\"15\" style=\"height: 15%;\"></div>
+                        <div class=\"chart-bar\" data-value=\"10\" style=\"height: 10%;\"></div>
+                        <div class=\"chart-bar\" data-value=\"10\" style=\"height: 10%;\"></div>
+                        <div class=\"chart-bar\" data-value=\"5\" style=\"height: 5%;\"></div>
+                        <div class=\"chart-bar\" data-value=\"5\" style=\"height: 5%;\"></div>
+                    </div>
+                    <div class=\"chart-labels\">
+                        <div class=\"chart-label\">Housing</div>
+                        <div class=\"chart-label\">Food</div>
+                        <div class=\"chart-label\">Transportation</div>
+                        <div class=\"chart-label\">Utilities</div>
+                        <div class=\"chart-label\">Savings</div>
+                        <div class=\"chart-label\">Entertainment</div>
+                        <div class=\"chart-label\">Others</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class=\"tab-content\" id=\"corporate\">
+                <h3>Corporate Finance</h3>
+                <p>Corporate finance focuses on how companies fund their operations, make investment decisions, and maximize shareholder value. Key areas include capital structure, dividend policy, capital budgeting, and working capital management.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Financial Metric</th>
+                            <th>Definition</th>
+                            <th>Importance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ROI (Return on Investment)</td>
+                            <td>A performance measure used to evaluate the efficiency of an investment</td>
+                            <td>Helps determine if an investment is profitable</td>
+                        </tr>
+                        <tr>
+                            <td>EBITDA</td>
+                            <td>Earnings Before Interest, Taxes, Depreciation, and Amortization</td>
+                            <td>Measures operational performance without accounting for financial decisions</td>
+                        </tr>
+                        <tr>
+                            <td>Debt-to-Equity Ratio</td>
+                            <td>Compares a company's total debt to its shareholder equity</td>
+                            <td>Indicates financial leverage and risk</td>
+                        </tr>
+                        <tr>
+                            <td>Working Capital</td>
+                            <td>Current assets minus current liabilities</td>
+                            <td>Measures short-term financial health</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class=\"tab-content\" id=\"investment\">
+                <h3>Investment Banking</h3>
+                <p>Investment banking involves activities such as underwriting new debt and equity securities, assisting with mergers and acquisitions, and providing guidance on complex financial transactions for corporations, institutions, and governments.</p>
+                <div class=\"chart-container\">
+                    <h4>Investment Banking Revenue Sources</h4>
+                    <div class=\"chart\">
+                        <div class=\"chart-bar\" data-value=\"40\" style=\"height: 40%;\"></div>
+                        <div class=\"chart-bar\" data-value=\"25\" style=\"height: 25%;\"></div>
+                        <div class=\"chart-bar\" data-value=\"15\" style=\"height: 15%;\"></div>
+                        <div class=\"chart-bar\" data-value=\"10\" style=\"height: 10%;\"></div>
+                        <div class=\"chart-bar\" data-value=\"10\" style=\"height: 10%;\"></div>
+                    </div>
+                    <div class=\"chart-labels\">
+                        <div class=\"chart-label\">M&A Advisory</div>
+                        <div class=\"chart-label\">Securities Underwriting</div>
+                        <div class=\"chart-label\">Trading</div>
+                        <div class=\"chart-label\">Asset Management</div>
+                        <div class=\"chart-label\">Other Services</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class=\"tab-content\" id=\"markets\">
+                <h3>Financial Markets</h3>
+                <p>Financial markets are platforms where buyers and sellers participate in the trade of assets such as equities, bonds, currencies, and derivatives. These markets facilitate the flow of funds between those who have money to lend and those who need money.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Market Type</th>
+                            <th>Description</th>
+                            <th>Examples</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Stock Markets</td>
+                            <td>Trading of company shares</td>
+                            <td>NYSE, NASDAQ, LSE</td>
+                        </tr>
+                        <tr>
+                            <td>Bond Markets</td>
+                            <td>Trading of debt securities</td>
+                            <td>Treasury bonds, corporate bonds</td>
+                        </tr>
+                        <tr>
+                            <td>Forex Markets</td>
+                            <td>Trading of currencies</td>
+                            <td>EUR/USD, GBP/JPY</td>
+                        </tr>
+                        <tr>
+                            <td>Commodities Markets</td>
+                            <td>Trading of raw materials</td>
+                            <td>Gold, oil, agricultural products</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class=\"section animate\">
+            <h2>Key Areas of Finance</h2>
+            <div class=\"grid\">
+                <div class=\"card\">
+                    <div class=\"card-image\">
+                        <img src=\"https://www.oecd.org/adobe/dynamicmedia/deliver/dm-aid--84746b0d-ecae-4680-84a5-48e692440a36/digital-finance-image.jpg?quality=80&preferwebp=true\" alt=\"Digital Finance\">
+                    </div>
+                    <div class=\"card-content\">
+                        <h3 class=\"card-title\">Digital Finance</h3>
+                        <p>Digital finance encompasses a range of new financial products, businesses, software, and new forms of customer communication and interaction delivered by FinTech companies and innovative financial service providers.</p>
+                        <button class=\"btn show-more-btn\">Learn More</button>
+                    </div>
+                </div>
+                
+                <div class=\"card\">
+                    <div class=\"card-image\">
+                        <img src=\"https://www.ollusa.edu/blog/_resources/what-is-corporate-finance.png\" alt=\"Corporate Finance\">
+                    </div>
+                    <div class=\"card-content\">
+                        <h3 class=\"card-title\">Corporate Finance</h3>
+                        <p>Corporate finance deals with the sources of funding and the capital structure of corporations, the actions that managers take to increase the value of the firm, and the tools and analysis used to allocate financial resources.</p>
+                        <button class=\"btn show-more-btn\">Learn More</button>
+                    </div>
+                </div>
+                
+                <div class=\"card\">
+                    <div class=\"card-image\">
+                        <img src=\"https://belkcollege.charlotte.edu/wp-content/uploads/sites/953/2024/05/Finance-finance-and-accounting_1000x1000.jpg\" alt=\"Finance Major\">
+                    </div>
+                    <div class=\"card-content\">
+                        <h3 class=\"card-title\">Finance Education</h3>
+                        <p>Finance education prepares students for careers in banking, corporate finance, financial planning, investment management, and real estate. It combines accounting, economics, and mathematics to analyze financial markets and make decisions.</p>
+                        <button class=\"btn show-more-btn\">Learn More</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class=\"section animate\">
+            <h2>Financial Planning & Analysis</h2>
+            <div class=\"grid\">
+                <div class=\"card\">
+                    <div class=\"card-image\">
+                        <img src=\"https://belkcollege.charlotte.edu/wp-content/uploads/sites/953/2024/05/Finance-Finance2_1000x1000.jpg\" alt=\"Financial Analysis\">
+                    </div>
+                    <div class=\"card-content\">
+                        <h3 class=\"card-title\">Financial Analysis</h3>
+                        <p>Financial analysis involves examining historical data to gain information about the current and future financial health of a company. This includes analyzing financial statements, cash flow, profitability ratios, and more.</p>
+                        <button class=\"btn show-more-btn\">Learn More</button>
+                    </div>
+                </div>
+                
+                <div class=\"card\">
+                    <div class=\"card-image\">
+                        <img src=\"https://bs-uploads.toptal.io/blackfish-uploads/components/blog_post_page/9510371/cover_image/optimized/unnamed-ee588c1991c7296b009811de36bbacb3.png\" alt=\"Business Finance\">
+                    </div>
+                    <div class=\"card-content\">
+                        <h3 class=\"card-title\">Business Finance</h3>
+                        <p>Business finance is about making decisions about how a company should raise and spend its capital. It involves managing assets, liabilities, revenues, and debt to ensure the company has enough cash flow to operate and grow.</p>
+                        <button class=\"btn show-more-btn\">Learn More</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class=\"section animate\">
+            <h2>Financial Calculators</h2>
+            <div class=\"tabs\">
+                <div class=\"tab active\" data-calc=\"loan\">Loan Calculator</div>
+                <div class=\"tab\" data-calc=\"investment\">Investment Calculator</div>
+                <div class=\"tab\" data-calc=\"retirement\">Retirement Calculator</div>
+            </div>
+            
+            <div class=\"tab-content active\" id=\"loan-calc\">
+                <h3>Loan Calculator</h3>
+                <form id=\"loan-form\">
+                    <div style=\"margin-bottom: 1rem;\">
+                        <label for=\"loan-amount\">Loan Amount ($):</label>
+                        <input type=\"number\" id=\"loan-amount\" value=\"10000\" min=\"1\" style=\"padding: 0.5rem; width: 100%; margin-top: 0.5rem;\">
+                    </div>
+                    <div style=\"margin-bottom: 1rem;\">
+                        <label for=\"loan-interest\">Annual Interest Rate (%):</label>
+                        <input type=\"number\" id=\"loan-interest\" value=\"5\" min=\"0\" step=\"0.1\" style=\"padding: 0.5rem; width: 100%; margin-top: 0.5rem;\">
+                    </div>
+                    <div style=\"margin-bottom: 1rem;\">
+                        <label for=\"loan-term\">Loan Term (years):</label>
+                        <input type=\"number\" id=\"loan-term\" value=\"5\" min=\"1\" style=\"padding: 0.5rem; width: 100%; margin-top: 0.5rem;\">
+                    </div>
+                    <button type=\"button\" id=\"calculate-loan\" class=\"btn\">Calculate</button>
+                </form>
+                <div id=\"loan-result\" style=\"margin-top: 1.5rem; display: none;\">
+                    <h4>Monthly Payment:</h4>
+                    <p id=\"monthly-payment\" style=\"font-size: 1.5rem; font-weight: bold; color: var(--primary-color);\"></p>
+                    <h4>Total Payment:</h4>
+                    <p id=\"total-payment\"></p>
+                    <h4>Total Interest:</h4>
+                    <p id=\"total-interest\"></p>
+                </div>
+            </div>
+            
+            <div class=\"tab-content\" id=\"investment-calc\">
+                <h3>Investment Calculator</h3>
+                <form id=\"investment-form\">
+                    <div style=\"margin-bottom: 1rem;\">
+                        <label for=\"initial-investment\">Initial Investment ($):</label>
+                        <input type=\"number\" id=\"initial-investment\" value=\"1000\" min=\"0\" style=\"padding: 0.5rem; width: 100%; margin-top: 0.5rem;\">
+                    </div>
+                    <div style=\"margin-bottom: 1rem;\">
+                        <label for=\"monthly-contribution\">Monthly Contribution ($):</label>
+                        <input type=\"number\" id=\"monthly-contribution\" value=\"100\" min=\"0\" style=\"padding: 0.5rem; width: 100%; margin-top: 0.5rem;\">
+                    </div>
+                    <div style=\"margin-bottom: 1rem;\">
+                        <label for=\"investment-return\">Annual Return (%):</label>
+                        <input type=\"number\" id=\"investment-return\" value=\"7\" min=\"0\" step=\"0.1\" style=\"padding: 0.5rem; width: 100%; margin-top: 0.5rem;\">
+                    </div>
+                    <div style=\"margin-bottom: 1rem;\">
+                        <label for=\"investment-years\">Investment Period (years):</label>
+                        <input type=\"number\" id=\"investment-years\" value=\"10\" min=\"1\" style=\"padding: 0.5rem; width: 100%; margin-top: 0.5rem;\">
+                    </div>
+                    <button type=\"button\" id=\"calculate-investment\" class=\"btn\">Calculate</button>
+                </form>
+                <div id=\"investment-result\" style=\"margin-top: 1.5rem; display: none;\">
+                    <h4>Future Value:</h4>
+                    <p id=\"future-value\" style=\"font-size: 1.5rem; font-weight: bold; color: var(--primary-color);\"></p>
+                    <h4>Total Contributions:</h4>
+                    <p id=\"total-contributions\"></p>
+                    <h4>Total Interest Earned:</h4>
+                    <p id=\"interest-earned\"></p>
+                </div>
+            </div>
+            
+            <div class=\"tab-content\" id=\"retirement-calc\">
+                <h3>Retirement Calculator</h3>
+                <form id=\"retirement-form\">
+                    <div style=\"margin-bottom: 1rem;\">
+                        <label for=\"current-age\">Current Age:</label>
+                        <input type=\"number\" id=\"current-age\" value=\"30\" min=\"18\" max=\"100\" style=\"padding: 0.5rem; width: 100%; margin-top: 0.5rem;\">
+                    </div>
+                    <div style=\"margin-bottom: 1rem;\">
+                        <label for=\"retirement-age\">Retirement Age:</label>
+                        <input type=\"number\" id=\"retirement-age\" value=\"65\" min=\"40\" max=\"100\" style=\"padding: 0.5rem; width: 100%; margin-top: 0.5rem;\">
+                    </div>
+                    <div style=\"margin-bottom: 1rem;\">
+                        <label for=\"current-savings\">Current Savings ($):</label>
+                        <input type=\"number\" id=\"current-savings\" value=\"10000\" min=\"0\" style=\"padding: 0.5rem; width: 100%; margin-top: 0.5rem;\">
+                    </div>
+                    <div style=\"margin-bottom: 1rem;\">
+                        <label for=\"monthly-savings\">Monthly Savings ($):</label>
+                        <input type=\"number\" id=\"monthly-savings\" value=\"500\" min=\"0\" style=\"padding: 0.5rem; width: 100%; margin-top: 0.5rem;\">
+                    </div>
+                    <div style=\"margin-bottom: 1rem;\">
+                        <label for=\"expected-return\">Expected Annual Return (%):</label>
+                        <input type=\"number\" id=\"expected-return\" value=\"6\" min=\"0\" step=\"0.1\" style=\"padding: 0.5rem; width: 100%; margin-top: 0.5rem;\">
+                    </div>
+                    <button type=\"button\" id=\"calculate-retirement\" class=\"btn\">Calculate</button>
+                </form>
+                <div id=\"retirement-result\" style=\"margin-top: 1.5rem; display: none;\">
+                    <h4>Retirement Savings:</h4>
+                    <p id=\"retirement-savings\" style=\"font-size: 1.5rem; font-weight: bold; color: var(--primary-color);\"></p>
+                    <h4>Total Contributions:</h4>
+                    <p id=\"retirement-contributions\"></p>
+                    <h4>Total Interest Earned:</h4>
+                    <p id=\"retirement-interest\"></p>
+                </div>
+            </div>
+        </section>
+
+        <section class=\"section animate\">
+            <h2>Frequently Asked Questions</h2>
+            <div class=\"faq-container\">
+                <div class=\"faq-item\">
+                    <div class=\"faq-question\">What is the difference between saving and investing?</div>
+                    <div class=\"faq-answer\">
+                        <p>Saving typically means putting money aside in a secure account (like a savings account) with minimal risk and lower returns. The main goal is to preserve the money for short-term needs or emergencies.</p>
+                        <p>Investing involves putting money into assets (like stocks, bonds, real estate) with the expectation of generating returns over time. Investing carries more risk but offers the potential for higher returns, especially for long-term goals.</p>
+                    </div>
+                </div>
+                
+                <div class=\"faq-item\">
+                    <div class=\"faq-question\">How much should I save for retirement?</div>
+                    <div class=\"faq-answer\">
+                        <p>A common guideline is to save 10-15% of your income for retirement, but the ideal amount varies based on:</p>
+                        <ul>
+                            <li>Your current age and desired retirement age</li>
+                            <li>Expected lifestyle in retirement</li>
+                            <li>
